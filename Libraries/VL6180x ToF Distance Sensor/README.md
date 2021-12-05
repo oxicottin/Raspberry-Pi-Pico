@@ -6,6 +6,8 @@ The VL6180X is the latest product based on ST’s patented FlightSense™technol
 ![76bcb659581900bbf765aa3540101d5b](https://user-images.githubusercontent.com/34151610/144728200-b752392e-5403-495e-806c-99047cecc17b.png)
 
 ## Product Link(https://www.dfrobot.com/product-2287.html)
+#OR
+(https://www.arrow.com/en/products/sen0427/dfrobot?q=SEN0427)
 
 ## Summary
 
