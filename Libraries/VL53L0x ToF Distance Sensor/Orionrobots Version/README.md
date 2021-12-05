@@ -1,5 +1,12 @@
 # VL53L0X Time of Flight for MicroPython
 
+![Capture](https://user-images.githubusercontent.com/34151610/144732354-e2a8dc49-3b44-40a9-8efb-bd95bab4da57.JPG)
+
+## AMAZON LINK:
+https://www.amazon.com/dp/B07XXTMRR2?psc=1&ref=ppx_yo2_dt_b_product_details
+
+## PRODUCT INFO
+
 This library will help you get up and running with the cheap VL53L0X Time of Flight Sensor, in MicroPython, specifically the Raspberry Pi Pico verison.
 
 This code is heavily based on the code by uceeatz: <https://github.com/uceeatz> with just some tweaks to make it work with the limitations of the Raspberry Pi Pico version of MicroPython.
