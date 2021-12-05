@@ -1,4 +1,4 @@
-## DEMENTIONS
+## PICO DEMENTIONS
 
 ![Raspberry-Pi-Pico-details-size](https://user-images.githubusercontent.com/34151610/144731841-11f8cfa3-2570-45c8-b114-542a37ac27bf.jpg)
 
