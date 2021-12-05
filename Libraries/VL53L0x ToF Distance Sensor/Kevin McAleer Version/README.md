@@ -1,6 +1,6 @@
 # VL53L0X Time of Flight for MicroPython
 
-![Capture](https://user-images.githubusercontent.com/34151610/144732354-e2a8dc49-3b44-40a9-8efb-bd95bab4da57.JPG)
+![Untitled](https://user-images.githubusercontent.com/34151610/144732495-0c53a6b7-224e-46dd-812f-2991243f3b66.jpg)
 
 ## AMAZON LINK:
 https://www.amazon.com/dp/B08HHXJZFD?psc=1&ref=ppx_yo2_dt_b_product_details
