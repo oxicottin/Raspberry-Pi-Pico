@@ -1,4 +1,12 @@
 # VL53L0X Time of Flight for MicroPython
+
+![Capture](https://user-images.githubusercontent.com/34151610/144732354-e2a8dc49-3b44-40a9-8efb-bd95bab4da57.JPG)
+
+## AMAZON LINK:
+https://www.amazon.com/dp/B08HHXJZFD?psc=1&ref=ppx_yo2_dt_b_product_details
+
+## PRODUCT INFO
+
 This library will help you get up and running with the cheap VL53L0X Time of Flight Sensor, in MicroPython, specifically the Raspberry Pi Pico verison.
 
 This code is heavily based on the code by uceeatz: <https://github.com/uceeatz> with just some tweaks to make it work with the limitations of the Raspberry Pi Pico version of MicroPython.
@@ -12,12 +20,16 @@ distance = tof.ping()
 ```
 to return values in millimeters.
 
----
+The tof_test demo will continuously print out readings from the sensor, but be sure to replace the pin numbers with those you have used, along with the I2C bus number.
 
-# How to use these files
-Load up your favourite MicroPython editor (I prefer [VS code](https://code.visualstudio.com/) or [Thonny](https://www.thonny.org)), then upload the `vl53l0x.py` file to the Pico, and then the `tof_test.py` file. Once you've uploaded these you can run them in Thonny and it will measure the distance and print it out to the REPL console.
+---
 
 Happy Laser-based Measuring!
 
 Kevin McAleer, 
 March 2021
+
+## Connecting the Pico
+
+This should be connected to one of the I2C busses. If the board you are using comes with an XSHUT pin,
+this should be connected (or pulled up) to the positive rail.
