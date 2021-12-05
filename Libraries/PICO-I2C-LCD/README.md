@@ -7,7 +7,7 @@ Project: Check it out for a full step-by-setp guide on Instructables: https://ww
 
 This is code adaptded for micropython and the Raspberry Pi PICO specifically.
 
-Usage: 
+## Usage: 
 - Download all 3 .py files included. 
 - Open Thonny IDE with the 3 files
 - Make pin edits or setup changes (See below for options) 
@@ -17,11 +17,13 @@ Usage:
 - If you get errors, see below for a known list of errors and their fixes
 - Wiring Diagram LCD_bb.jpg! Please look here for a fritzing diagram!
 
-Requirements:
+## Requirements:
 - 3.3 - 5V level translator. This is crucial to encure the lcd recieves the commands properly. I recommend this: https://www.adafruit.com/product/757 (Must be Bi-Directional)
 - PCF8574 I2C LCD backpack. (These are common to find)
 
-Setup Changes:
+![Schematic](https://user-images.githubusercontent.com/34151610/144732637-3b4a536a-5eec-4937-b953-b6a61de2f243.jpg)
+
+## Setup Changes:
 - Make sure the top address is set correctly!
 Use this small program to scan for I2C devices:
 
@@ -36,7 +38,7 @@ in my case, the decimal addr. was 39 which converts to 0x27 in hex.
 - Ensure that your SCL and SDA pins are selected properly in accordance with the Pico's pin table. These connect to the low voltage side of the translator with a 3.3V Reference from the board. The high voltage side gets a 5V reference from the VBUS pin of the Pico.
 - Finally, assure the I2C_NUM_ROWS and I2C_NUM_COLS are set properly!
 
-Functions / Usage: 
+## Functions / Usage: 
 
 These are the python commands used in a program! (They can all be found in the lcd_api.py file with definitions to their functions)
 - lcd.putstr("Text goes here!")                     - Send a string of chars to the display IMPORTANT: Use this for printing a variable: lcd.putstr(str(Variable)) [Turns variable into string] 
@@ -48,11 +50,9 @@ These are the python commands used in a program! (They can all be found in the l
 - lcd.move_to(Col, Row)                             - Move to position based on row and col values (Y, X)
 - lcd.custom_char(Num, bytearray([HEX chars])))     - Num can be any integer 0 - 8 (Writing to CGRAM locations) merely used for numbering. The HEX chars are simply made by using this link: https://maxpromer.github.io/LCD-Character-Creator/. It will provide a string of Hex charecters which can replace the "HEX chars" in the example command.
 
-Errors:
+## Errors:
 
 OSERROR : 5 (This is quite a common error, 5 means I/O error. Check Your connections. This means codes can't be sent or recieved ensure SCL and SDA are properly connected through the level translator!
-
-Feel to leave comments or questions / issues and I will try to answer / resolve them as quick as possible!
 
 For people wondering how to use this code, Tinkernut on Youtube created a very nice guide + some more features! https://www.youtube.com/watch?v=B8Kr_3xHjqE&t
 
