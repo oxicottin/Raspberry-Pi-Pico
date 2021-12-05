@@ -1,4 +1,4 @@
-# VL53L0X Time of Flight for MicroPython
+# VL53L0xV2 Time of Flight for MicroPython
 
 ![Capture](https://user-images.githubusercontent.com/34151610/144732354-e2a8dc49-3b44-40a9-8efb-bd95bab4da57.JPG)
 
