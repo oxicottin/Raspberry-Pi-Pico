@@ -15,7 +15,9 @@ https://www.digikey.com/en/maker/projects/raspberry-pi-pico-rp2040-i2c-example-w
 
 ## Sensors:
 https://www.amazon.com/dp/B072C99YL5?psc=1&ref=ppx_yo2_dt_b_product_details
+
 OR
+
 https://www.amazon.com/dp/B08VD7325C?ref=ppx_yo2_dt_b_product_details&th=1
 
 
