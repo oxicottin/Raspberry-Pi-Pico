@@ -3,7 +3,7 @@ from machine import Pin, I2C
 import utime
 import ustruct
 
-#https://www.digikey.com/en/maker/projects/raspberry-pi-pico-rp2040-i2c-example-with-micropython-and-cc/47d0c922b79342779cdbd4b37b7eb7e2
+# https://www.digikey.com/en/maker/projects/raspberry-pi-pico-rp2040-i2c-example-with-micropython-and-cc/47d0c922b79342779cdbd4b37b7eb7e2
 
 ###############################################################################
 # Constants
@@ -22,17 +22,17 @@ SENSITIVITY_2G = 1.0 / 256  # (g/LSB)
 EARTH_GRAVITY = 9.80665     # Earth's gravity in [m/s^2]
 
 ###############################################################################
-# Settings for i2c
 
+# Initialize I2C with pins 
 print("Setting Up i2c")
 sda = Pin(0)
 scl = Pin(1)
 id = 0
 
+# Create I2C object
 i2c = I2C(id=id, sda=sda, scl=scl,freq=400000)
 
-
-# Print out any addresses found
+# Scan the bus and print out address found
 devices = i2c.scan()
 
 if devices:
@@ -98,7 +98,7 @@ print("Register Back Power Control:", data)
 # Wait before taking measurements
 utime.sleep(2.0)
 
-# Run forever
+###############################################################################
 while True:
     
     # Read X, Y, and Z values from registers (16 bits each)
@@ -113,10 +113,30 @@ while True:
     acc_x = acc_x * SENSITIVITY_2G * EARTH_GRAVITY
     acc_y = acc_y * SENSITIVITY_2G * EARTH_GRAVITY
     acc_z = acc_z * SENSITIVITY_2G * EARTH_GRAVITY
-
-    # Print results
-    print("X:", "{:.2f}".format(acc_x), \
-          "| Y:", "{:.2f}".format(acc_y), \
-          "| Z:", "{:.2f}".format(acc_z))
+##################################################
+#  Print results_Old
     
+#     print("X:", "{:.2f}".format(acc_x), \
+#           "| Y:", "{:.2f}".format(acc_y), \
+#           "| Z:", "{:.2f}".format(acc_z))
+##################################################
+#  Print results_New
+
+#   {:.2f} = Specifys 2 digits of precision and f represents a floating point number
+    z_tilt = ("{:.2f}".format(acc_z))  
+    
+    if z_tilt >= "2.00":
+        print ("Tilted Up: {}".format(z_tilt))       
+    elif z_tilt >= "-0.01" and z_tilt <= "-1.99":
+        print ("-Level: {}".format(z_tilt))
+    elif z_tilt >= "0.00" and z_tilt <= "1.99":
+        print ("+Level: {}".format(z_tilt))    
+    else:
+        print ("Tilted Down: {}".format(z_tilt))
     utime.sleep(0.1)
+    
+    
+    
+    
+    
+    
