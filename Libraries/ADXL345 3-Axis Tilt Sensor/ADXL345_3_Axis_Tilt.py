@@ -123,16 +123,16 @@ while True:
 #  Print results_New
 
 #   {:.2f} = Specifys 2 digits of precision and f represents a floating point number
-    z_tilt = ("{:.2f}".format(acc_z))  
+    y_tilt = ("{:.2f}".format(acc_y))  
     
-    if z_tilt >= "2.00":
-        print ("Tilted Up: {}".format(z_tilt))       
-    elif z_tilt >= "-0.01" and z_tilt <= "-1.99":
-        print ("-Level: {}".format(z_tilt))
-    elif z_tilt >= "0.00" and z_tilt <= "1.99":
-        print ("+Level: {}".format(z_tilt))    
+    if y_tilt >= "2.00":
+        print ("Tilted Up: {}".format(y_tilt))       
+    elif y_tilt >= "-0.01" and y_tilt <= "-1.99":
+        print ("-Level: {}".format(y_tilt))
+    elif y_tilt >= "0.00" and y_tilt <= "1.99":
+        print ("+Level: {}".format(y_tilt))    
     else:
-        print ("Tilted Down: {}".format(z_tilt))
+        print ("Tilted Down: {}".format(y_tilt))
     utime.sleep(0.1)
     
     
