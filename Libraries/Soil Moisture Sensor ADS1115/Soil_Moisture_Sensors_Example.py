@@ -11,20 +11,19 @@ import utime
 i2c2 = I2C(0, sda=machine.Pin(0), scl=machine.Pin(1), freq=400000)
 
 # ------------------------------------------------------------------------
-"""
 # Scan i2c-Bus for connected devices
 
-print('Scanning i2c bus')
-devices = i2c2.scan()
+#  print('Scanning i2c bus')
+#  devices = i2c2.scan()
 
-if len(devices) == 0:
- print("No i2c device !")
-else:
- print('i2c devices found:',len(devices))
+#  if len(devices) == 0:
+#   print("No i2c device !")
+#  else:
+#   print('i2c devices found:',len(devices))
  
-for device in devices:
- print("Decimal address: ",device," | Hexa address: ",hex(device))
-"""
+#  for device in devices:
+#   print("Decimal address: ",device," | Hexa address: ",hex(device))
+
 # ------------------------------------------------------------------------
 # Define Variables
 
@@ -46,11 +45,10 @@ def percentage_value(value, in_min, out_max, out_min):
     
 # ------------------------------------------------------------------------
 while True:   
-    """
+
 # https://www.calculatorsoup.com/calculators/statistics/average.php
-    print(adc0.read())  # Run to get wet/dry variable numbers
-    utime.sleep(0.25)
-    """
+#     print(adc0.read())  # Run to get wet/dry variable numbers
+#     utime.sleep(0.25)
     
     adc0_result_A0 = percentage_value(adc0.read(0, 0), dry, wet, dry)
 #     adc0_result_A0 = percentage_value(adc0.read(0, 0), dry, wet, dry)
