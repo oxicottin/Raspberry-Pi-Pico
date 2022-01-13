@@ -22,7 +22,7 @@ def scroll_in_screen(screen):
     oled.show()
     if i!= oled_width:
       oled.fill(0)
-```py
+```
 
 This function accepts as argument a list of lists. For example:
 
