@@ -127,10 +127,10 @@ from machine import Pin, SoftI2C
 import ssd1306
 from time import sleep
 
-# ESP32 Pin assignment
+## ESP32 Pin assignment
 i2c = SoftI2C(scl=Pin(22), sda=Pin(21))
 
-# ESP8266 Pin assignment
+## ESP8266 Pin assignment
 #i2c = SoftI2C(scl=Pin(5), sda=Pin(4))
 
 oled_width = 128
@@ -150,7 +150,7 @@ screen1 = [[0, 0 , screen1_row1], [0, 16, screen1_row2], [0, 32, screen1_row3]]
 screen2 = [[0, 0 , screen2_row1], [0, 16, screen2_row2]]
 screen3 = [[0, 40 , screen3_row1]]
 
-# Scroll in screen horizontally from left to right
+## Scroll in screen horizontally from left to right
 def scroll_in_screen(screen):
   for i in range (0, oled_width+1, 4):
     for line in screen:
@@ -159,7 +159,7 @@ def scroll_in_screen(screen):
     if i!= oled_width:
       oled.fill(0)
 
-# Scroll out screen horizontally from left to right
+## Scroll out screen horizontally from left to right
 def scroll_out_screen(speed):
   for i in range ((oled_width+1)/speed):
     for j in range (oled_height):
@@ -167,7 +167,7 @@ def scroll_out_screen(speed):
     oled.scroll(speed,0)
     oled.show()
 
-# Continuous horizontal scroll
+## Continuous horizontal scroll
 def scroll_screen_in_out(screen):
   for i in range (0, (oled_width+1)*2, 1):
     for line in screen:
@@ -176,7 +176,7 @@ def scroll_screen_in_out(screen):
     if i!= oled_width:
       oled.fill(0)
 
-# Scroll in screen vertically
+## Scroll in screen vertically
 def scroll_in_screen_v(screen):
   for i in range (0, (oled_height+1), 1):
     for line in screen:
@@ -185,7 +185,7 @@ def scroll_in_screen_v(screen):
     if i!= oled_height:
       oled.fill(0)
 
-# Scroll out screen vertically
+## Scroll out screen vertically
 def scroll_out_screen_v(speed):
   for i in range ((oled_height+1)/speed):
     for j in range (oled_width):
@@ -193,7 +193,7 @@ def scroll_out_screen_v(speed):
     oled.scroll(0,speed)
     oled.show()
 
-# Continous vertical scroll
+## Continous vertical scroll
 def scroll_screen_in_out_v(screen):
   for i in range (0, (oled_height*2+1), 1):
     for line in screen:
@@ -204,7 +204,7 @@ def scroll_screen_in_out_v(screen):
 
 while True:
 
-  # Scroll in, stop, scroll out (horizontal)
+  ## Scroll in, stop, scroll out (horizontal)
   scroll_in_screen(screen1)
   sleep(2)
   scroll_out_screen(4)
@@ -217,12 +217,12 @@ while True:
   sleep(2)
   scroll_out_screen(4)
 
-  # Continuous horizontal scroll
+  ## Continuous horizontal scroll
   scroll_screen_in_out(screen1)
   scroll_screen_in_out(screen2)
   scroll_screen_in_out(screen3)
 
-  # Scroll in, stop, scroll out (vertical)
+  ## Scroll in, stop, scroll out (vertical)
   scroll_in_screen_v(screen1)
   sleep(2)
   scroll_out_screen_v(4)
@@ -235,7 +235,7 @@ while True:
   sleep(2)
   scroll_out_screen_v(4)
 
-  # Continuous verticall scroll
+  ## Continuous verticall scroll
   scroll_screen_in_out_v(screen1)
   scroll_screen_in_out_v(screen2)
   scroll_screen_in_out_v(screen3)
