@@ -1,7 +1,7 @@
 # Random Nerd Tutorials
 
 
-## Complete project details at: 
+Complete project details at: 
 https://RandomNerdTutorials.com/micropython-ssd1306-oled-scroll-shapes-esp32-esp8266/
 
 SH1106 OLED Library
