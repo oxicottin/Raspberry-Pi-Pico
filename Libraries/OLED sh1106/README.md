@@ -14,7 +14,7 @@ Sometimes you want to display different screens on the OLED display. For example
 
 Scroll in horizontally
 The following function scroll_in_screen(screen) scrolls the content of an entire screen (right to left).
-
+```
 def scroll_in_screen(screen):
   for i in range (0, oled_width+1, 4):
     for line in screen:
@@ -22,7 +22,7 @@ def scroll_in_screen(screen):
     oled.show()
     if i!= oled_width:
       oled.fill(0)
-
+```py
 
 This function accepts as argument a list of lists. For example:
 
