@@ -1,7 +1,8 @@
 # Random Nerd Tutorials
 
 
-## Complete project details at https://RandomNerdTutorials.com/micropython-ssd1306-oled-scroll-shapes-esp32-esp8266/
+## Complete project details at: 
+https://RandomNerdTutorials.com/micropython-ssd1306-oled-scroll-shapes-esp32-esp8266/
 
 SH1106 OLED Library
 The library to write to the OLED display isn’t part of the standard MicroPython library by default. So, you need to upload the library to your  board.
