@@ -3,6 +3,7 @@ from machine import I2C
 from ads1x15 import ADS1115
 from sh1106 import SH1106_I2C
 import utime
+import time
 
 # ------------------------------------------------------------------------
 # Define GPIO Pins
@@ -51,14 +52,16 @@ def scroll_out_screen_v(speed):
 # ------------------------------------------------------------------------
 # Define Variables
 
+# -----------------------------------ADC
 wet = 11140  # Wet Baseline Reading 
-dry = 22000  # Dry Baseline Reading 
+dry = 21827  # Dry Baseline Reading 
 
 adc0 = ADS1115(i2c2, 0x48, 1)  # Pins, 1st ADC Address, Gain = 1
 # adc1 = ADS1115(i2c2, 0x49, 1)  # Pins, 2nd ADC Address, Gain = 1
 # adc2 = ADS1115(i2c2, 0x4A, 1)  # Pins, 3rd ADC Address, Gain = 1 
-# adc3 = ADS1115(i2c2, 0x4B, 1)  # Pins, 4th ADC Address, Gain = 1 
+# adc3 = ADS1115(i2c2, 0x4B, 1)  # Pins, 4th ADC Address, Gain = 1
 
+# -----------------------------------OLED
 oled_width = 128 # Width of OLED screen
 oled_height = 64 # Height of OLED screen
 
@@ -69,13 +72,32 @@ screen1_row2 = "Screen 1, row 2"
 screen1_row3 = "Screen 1, row 3"
 screen1_row4 = "Screen 1, row 4"
 
+# -----------------------------------Date/Time
+months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+eut = time.time() # Epoch Unix Timestamp
+        
+if len(str(abs(time.localtime()[4]))) == 1:
+    curr_min = ("0" + str(abs(time.localtime()[4])))
+else:
+    curr_min = str(abs(time.localtime()[4]))
+if len(str(abs(time.localtime()[3]))) == 1:
+    curr_hr = ("0" + str(abs(time.localtime()[3])))
+else:
+    curr_hr = str(abs(time.localtime()[3]))
+if len(str(abs(time.localtime()[2]))) == 1:
+    date_day = ("0" + str(abs(time.localtime()[2])))
+else:
+    curr_day = str(abs(time.localtime()[2]))
+
+    curr_date = (months[abs(time.localtime()[1])] + "-" + curr_day + "-" + str(abs(time.localtime()[0]) % 100) + " " + curr_hr + ":" + curr_min)
+    
 # ------------------------------------------------------------------------
 while True:
-    """
+    '''   
 # https://www.calculatorsoup.com/calculators/statistics/average.php
     print(adc0.read())  # Run to get wet/dry variable numbers
     utime.sleep(0.25)
-    """
+    '''
     
 # First Analog-to-Digital ADC PGA Converter ADS1115--------------
     adc0_result_A0 = percentage_value(adc0.read(0, 0), dry, wet, dry)
@@ -89,12 +111,13 @@ while True:
 #     adc1_result_A2 = percentage_value(adc1.read(0, 2), dry, wet, dry)
 #     adc1_result_A3 = percentage_value(adc1.read(0, 3), dry, wet, dry)
 
-    screen1 = [[0, 0 , "Sensor 1: " + str(adc0_result_A0)], [0, 16, screen1_row2], [0, 32, screen1_row3], [0, 48, screen1_row4]]
+    screen1 = [[0, 0 , "Sensor 1: " + str(adc0_result_A0)], [0, 16, (curr_date)], [0, 32, screen1_row3], [0, 48, screen1_row4]]
     
 # Scroll in, stop, scroll out (vertical)
     scroll_in_screen_v(screen1)
     utime.sleep(5) # Sleep for 5 seconds
     scroll_out_screen_v(2)
+ 
 
 
 
