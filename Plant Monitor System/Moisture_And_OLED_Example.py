@@ -2,28 +2,16 @@ import machine
 from machine import I2C
 from ads1x15 import ADS1115
 from sh1106 import SH1106_I2C
+from dht22 import DHT22
 import utime
 import time
+from machine import Pin
 
 # ------------------------------------------------------------------------
-# Define GPIO Pins
+# Define/Initialize GPIO Pins
 
 i2c2 = I2C(0, sda=machine.Pin(0), scl=machine.Pin(1), freq=400000)
-
-# ------------------------------------------------------------------------
-# Scan i2c-Bus for connected devices
-"""
-print('Scanning i2c bus')
-devices = i2c2.scan()
-
-if len(devices) == 0:
- print("No i2c device !")
-else:
- print('i2c devices found:',len(devices))
- 
-for device in devices:
- print("Decimal address: ",device," | Hexa address: ",hex(device))
-"""
+dht22 = DHT22(Pin(2,Pin.IN,Pin.PULL_UP))
 # ------------------------------------------------------------------------
 #  Define Functions
 
@@ -52,7 +40,7 @@ def scroll_out_screen_v(speed):
 # ------------------------------------------------------------------------
 # Define Variables
 
-# -----------------------------------ADC
+# -----------------------------------ADC Converter
 wet = 11140  # Wet Baseline Reading 
 dry = 21827  # Dry Baseline Reading 
 
@@ -61,16 +49,15 @@ adc0 = ADS1115(i2c2, 0x48, 1)  # Pins, 1st ADC Address, Gain = 1
 # adc2 = ADS1115(i2c2, 0x4A, 1)  # Pins, 3rd ADC Address, Gain = 1 
 # adc3 = ADS1115(i2c2, 0x4B, 1)  # Pins, 4th ADC Address, Gain = 1
 
-# -----------------------------------OLED
+# -----------------------------------OLED Display
 oled_width = 128 # Width of OLED screen
 oled_height = 64 # Height of OLED screen
 
 oled = SH1106_I2C(oled_width, oled_height, i2c2)
 
-#screen1_row1 = "Sensor 1: " + str(adc0_result_A0) # "Screen 1, row 1"
-screen1_row2 = "Screen 1, row 2" 
-screen1_row3 = "Screen 1, row 3"
-screen1_row4 = "Screen 1, row 4"
+screen1_row2 = "Sensor 2:, TEST" 
+screen1_row3 = "Sensor 3:, TEST"
+screen1_row4 = "Sensor 4:, TEST"
 
 # -----------------------------------Date/Time
 months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -88,10 +75,16 @@ if len(str(abs(time.localtime()[2]))) == 1:
     date_day = ("0" + str(abs(time.localtime()[2])))
 else:
     curr_day = str(abs(time.localtime()[2]))
-
+    
+    # Result Date/Time
     curr_date = (months[abs(time.localtime()[1])] + "-" + curr_day + "-" + str(abs(time.localtime()[0]) % 100) + " " + curr_hr + ":" + curr_min)
     
+# -----------------------------------Temperature & Humidity Sensor
+T, H = dht22.read() # Gets Temp & Hum from dht22.py library
+temp_f = T * (9/5) + 32.0 # Converts the (T) temperature to Fahrenheit degrees
 # ------------------------------------------------------------------------
+#  Let's Do Stuff
+
 while True:
     '''   
 # https://www.calculatorsoup.com/calculators/statistics/average.php
@@ -111,14 +104,19 @@ while True:
 #     adc1_result_A2 = percentage_value(adc1.read(0, 2), dry, wet, dry)
 #     adc1_result_A3 = percentage_value(adc1.read(0, 3), dry, wet, dry)
 
-    screen1 = [[0, 0 , "Sensor 1: " + str(adc0_result_A0)], [0, 16, (curr_date)], [0, 32, screen1_row3], [0, 48, screen1_row4]]
-    
+# -----------------------------------OLED Display
+    OLED_screen1 = [[0, 0 , "Sensor 1: " + str(adc0_result_A0)], [0, 16, screen1_row2], [0, 32, screen1_row3], [0, 48, screen1_row4]]
+    OLED_screen2 = [[0, 0, (curr_date)], [0, 16 , "Temp: %3.1fF" %temp_f], [0, 32, "Humidity: %3.1f%%" %H]]
+
 # Scroll in, stop, scroll out (vertical)
-    scroll_in_screen_v(screen1)
+    scroll_in_screen_v(OLED_screen1)
     utime.sleep(5) # Sleep for 5 seconds
     scroll_out_screen_v(2)
- 
 
+    scroll_in_screen_v(OLED_screen2)
+    utime.sleep(5) # Sleep for 5 seconds
+    scroll_out_screen_v(2)
+# -----------------------------------
 
 
 
