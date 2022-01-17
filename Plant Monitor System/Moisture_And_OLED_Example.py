@@ -1,6 +1,5 @@
-import machine
-import time
-import uasyncio
+import machine, time, uasyncio
+from primitives.pushbutton import Pushbutton
 from machine import I2C
 from ads1x15 import ADS1115
 from sh1106 import SH1106_I2C
@@ -45,7 +44,7 @@ def scroll_out_screen_v(speed):
 # -----------------------------------ADC Converter
 
 wet = 11140  # Wet Baseline Reading 
-dry = 21500  # Dry Baseline Reading 
+dry = 21540  # Dry Baseline Reading 
 
 adc0 = ADS1115(i2c2, 0x48, 1)  # Pins, 1st ADC Address, Gain = 1
 # adc1 = ADS1115(i2c2, 0x49, 1)  # Pins, 2nd ADC Address, Gain = 1
@@ -114,62 +113,31 @@ OLED_screen2 = [[0, 2 , "Pot 1: " + str(adc0_result_A0)], [0, 18, screen1_row2],
 # Coroutine: blink on a timer
 async def blink(delay):
     while True:
-        led.toggle() # Toggle onboard LED on/off
+        led.toggle()
         await uasyncio.sleep(delay)
 
-# Coroutine: only return on button press
-async def wait_button():
-    btn_prev = btn_show_display.value()
-    while (btn_show_display.value() == 1) or (btn_show_display.value() == btn_prev):
-        btn_prev = btn_show_display.value()
-        await uasyncio.sleep(0.04)
-        
+async def wake_oled():  # Runs when button pressed
+    for i in range(2):
+    # Scroll in, stop, scroll out (vertical)
+        scroll_in_screen_v(OLED_screen1)
+        await uasyncio.sleep(5) # Sleep for 5 seconds (must use async sleep)
+        scroll_out_screen_v(2)
+
+        scroll_in_screen_v(OLED_screen2)
+        await uasyncio.sleep(5) # Sleep for 5 seconds
+        scroll_out_screen_v(2)
+
 # Coroutine: entry point for asyncio program
 async def main():
+    pb = Pushbutton(btn_show_display)  # Create pushbutton instance
+    pb.press_func(wake_oled)
     
     # Start coroutine as a task and immediately return
     uasyncio.create_task(blink(0.2))
     
-# ------------------------------------------------------------------------
-# Main Loop
-
     while True:
-        # Calculate time between button presses
-        await wait_button()
-
-        for i in range(2):
-        # Scroll in, stop, scroll out (vertical)
-            scroll_in_screen_v(OLED_screen1)
-            time.sleep(5) # Sleep for 5 seconds
-            scroll_out_screen_v(2)
-
-            scroll_in_screen_v(OLED_screen2)
-            time.sleep(5) # Sleep for 5 seconds
-            scroll_out_screen_v(2)
+        await uasyncio.sleep(1)  # You can run other code here
 
 # Start event loop and run entry point coroutine
 uasyncio.run(main())
-
-
-
-
-
-
-
-
-
-
-
-
-#Attach interrupt to btn_show_display            
-# btn_show_display.irq(trigger=machine.Pin.IRQ_RISING, handler=show_display)
-
-# -----------------------------------
-   
-#   
-# # https://www.calculatorsoup.com/calculators/statistics/average.php
-#     print(adc0.read())  # Run to get wet/dry variable numbers
-#     time.sleep(0.25)
-
-
 
